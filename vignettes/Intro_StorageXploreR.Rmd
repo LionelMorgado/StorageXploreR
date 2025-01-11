@@ -1,0 +1,196 @@
+---
+title: "Introduction to StorageXploreR"
+author: Lionel Morgado
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Introduction to StorageXploreR}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup, include=FALSE}
+library(StorageXploreR)
+```
+
+
+# Introduction
+
+Over time, organizations can accumulate large amounts of data following poor storage standards.
+For example, when multiple copies of the same data are kept or suboptimal file formats are used,
+challenging situations such as a lack of storage space or additional storage costs can arise. 
+
+StorageXploreR provides a set of functions to scan data storage units and quickly create a utilization
+profile to facilitate downstream optimization and standardization. Using file attributes such as the 
+name, extension, format and size, it enables the detection of multi-copy and name-related files as 
+candidates for potential removal or format optimization.
+
+This vignette shows some common ways in which the functions in this package can
+be used. It is however not exhaustive and won't show every argument of every
+function. You can view the documentation of a function by adding a `?` in front
+of it. Like: `?plot_donut`. This way youvcan get a more detailed description of the functions and all their
+arguments. Additional examples of how the functions in this package can be used are also available.
+
+
+# Installation
+
+The package can be installed from github.
+```{r install_package, eval=FALSE}
+install_github("LionelMorgado/StorageXploreR")
+```
+
+
+The package also need to be loaded every time `R` is restart.
+```{r Load package, message=FALSE}
+library(StorageXploreR)
+```
+
+
+# Data
+
+The package provides a function to scan data storage units. After a successfull execution, it creates a file that can be further used in the future.
+
+
+## Scan storage
+Detecting all files and their sizes in a given directory is possible by using:
+```{r scan_storage, eval=FALSE}
+scan_storage("/mnt/d/")
+```
+Please keep in mind that scanning storage units with very large amounts of data can be very time consuming.
+
+## Load data
+To load data from a previous scan, run:
+```{r load_data, eval=FALSE}
+scan_file = "/mnt/d/StorageXploreR-2025-01-10_20h18m.txt"
+dataset = read.table(scan_file, header=TRUE, sep="\t")
+```
+```{r knit1, include = FALSE}
+scan_file = "D:/Stuff/GITHUBPortfolio/Storage/Storage_HUBOrganoids/RESULTS/WDrive_storage.txt"
+dataset = read.table(scan_file, header=TRUE, sep="\t")
+```
+
+
+# Filter data: include/exclude subsets
+It is possible to focus on specific directories by selecting or removing subsets with the functions include and exclude.
+
+##Include data
+This allows to select a subset of the items that start with a given tag, such as a common root directory:
+```{r include_data, eval=FALSE}
+inc_flag = include(dataset[,2],"./CNV/CNAprofiles" )
+dataset = dataset[inc_flag,]
+```
+
+##Exclude data
+This allows to exclude a subset of the items that start with a given tag, such as a common root directory: 
+```{r exclude_data, eval=FALSE}
+exc_flag = exclude(dataset[,2],"./CNV/CNAprofiles" )
+dataset = dataset[exc_flag,]
+```
+
+
+# Parse data
+A simple but powerfull set of functions to parse directories and files.
+The parsers assume that the files follow the established naming convention: \<FILE_NAME\>.\<EXTENSION\>.
+
+## Get file full name
+The combination "\<FILE_NAME\>.\<EXTENSION\>" is designated in this package as "full name". To detect get this, type:
+```{r get_file_full_name}
+full_names = get_fullnames(dataset[,2])
+```
+
+## Get file extension
+You can obtain the file extensions ('.' is not included) with:
+```{r get_file_extension}
+extensions = get_extensions(dataset[,2])
+```
+
+## Get file format
+You can scan for file extensions belonging to formats recognized by the package:
+```{r get_file_format}
+formats = get_formats(extensions)
+```
+To access the list of known file extensions, type:
+```{r load_knowndb}
+data(known_db)
+
+head(known_db)
+```
+
+
+# Redundancy detection
+Data redundancy can come in two main forms: files with multiple copies and same data stored in different file formats. To have a more lean storage you may want to flag these for further inspection and possible removal.
+
+## Detect files with multiple copies (criteria: same full name + same size)
+Multi-copy files can be detected with:
+```{r detect_multicopy, eval=FALSE}
+multicopy_idx = detect_multicopy_files(dataset[,2], dataset[,1])
+```
+
+## Detect related files (criteria: same name, but extension and size can differ)
+Handling data can result in the exact same data stored under different file formats. For example, for security reasons we can get an encrypted file (.gpg), which after decryption can produce a new compressed file (.zip), which needs to be decompressed so we can access a human readable version such as a text file (.txt). These files often share the same name, which we can use to detect related instances.
+This can be done via:
+```{r detect_related, eval=FALSE}
+related_idx = detect_related_files(dataset[,2])
+```
+
+
+# Descriptive statistics
+```{r descriptive_statistics}
+# Get file sizes by file extension
+xt_sz = get_sizes(dataset[,1], extensions)
+```
+
+
+# Plotting results
+A set of functions were develop to quickly plot and visualize storage usage.
+The functions allow to define the number of top categories to use in the plots, and can automatically detect and convert storage size units to improve visualization.
+
+## Donut
+The donut chart can be useful to get an impression about which files take the biggest fraction of the storage.
+```{r plot_donut}
+# Donut for storage usage by file extension
+#..prepare data for plotting..
+c_sz = xt_sz
+names(c_sz) = colnames(dataset)[1]
+
+#..plot..
+plot_donut(sizes=c_sz, 
+           ids=names(xt_sz),
+		       fraction_thresh=0.02,
+		       donut_title="Storage used by file extension")
+```
+
+## Barplot
+The barplot allows to check which files take most of the storage. In a donut chart we focus on fractions, here we focus on total size taken. Plotting side-by-side can give a better impression about the categories plotted relative to each other. 
+```{r plot_barplot}
+# Barplot for top file extensions in terms of storage usage
+plot_barplot(sizes=c_sz,
+             ids=names(xt_sz),
+             max_ids=20,
+             barplot_title="Size in storage",
+             x_label="File Extension")
+```
+
+## Boxplot
+The barplot allows to get an overview for individual files. Prioritizing outliers in downstream storage optimization can be an easy way to quickly gain storage space.
+```{r plot_boxplot}
+# Boxplot for all files in file extension groups with top storage usage
+c_sz = dataset[,1]
+names(c_sz) = colnames(dataset)[1]
+
+plot_boxplot(sizes=c_sz,
+             ids=extensions,
+             max_ids=20,
+             boxplot_title="File size",
+             x_label="File Extension")
+```
+
+
+
+

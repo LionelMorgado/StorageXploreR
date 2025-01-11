@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<meta name="author" content="Lionel Morgado" />
+
+
+<title>Introduction to StorageXploreR</title>
+
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<link href="data:text/css;charset=utf-8,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" rel="stylesheet" type="text/css" />
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Introduction to StorageXploreR</h1>
+<h4 class="author">Lionel Morgado</h4>
+
+
+
+<div id="introduction" class="section level1">
+<h1>Introduction</h1>
+<p>Over time, organizations can accumulate large amounts of data following poor storage standards. For example, when multiple copies of the same data are kept or suboptimal file formats are used, challenging situations such as a lack of storage space or additional storage costs can arise.</p>
+<p>StorageXploreR provides a set of functions to scan data storage units and quickly create a utilization profile to facilitate downstream optimization and standardization. Using file attributes such as the name, extension, format and size, it enables the detection of multi-copy and name-related files as candidates for potential removal or format optimization.</p>
+<p>This vignette shows some common ways in which the functions in this package can be used. It is however not exhaustive and won't show every argument of every function. You can view the documentation of a function by adding a <code>?</code> in front of it. Like: <code>?plot_donut</code>. This way youvcan get a more detailed description of the functions and all their arguments. Additional examples of how the functions in this package can be used are also available.</p>
+</div>
+<div id="installation" class="section level1">
+<h1>Installation</h1>
+<p>The package can be installed from github.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install_github</span>(<span class="st">&quot;LionelMorgado/StorageXploreR&quot;</span>)</code></pre></div>
+<p>The package also need to be loaded every time <code>R</code> is restart.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(StorageXploreR)</code></pre></div>
+</div>
+<div id="data" class="section level1">
+<h1>Data</h1>
+<p>The package provides a function to scan data storage units. After a successfull execution, it creates a file that can be further used in the future.</p>
+<div id="scan-storage" class="section level2">
+<h2>Scan storage</h2>
+<p>Detecting all files and their sizes in a given directory is possible by using:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">scan_storage</span>(<span class="st">&quot;/mnt/d/&quot;</span>)</code></pre></div>
+<p>Please keep in mind that scanning storage units with very large amounts of data can be very time consuming.</p>
+</div>
+<div id="load-data" class="section level2">
+<h2>Load data</h2>
+<p>To load data from a previous scan, run:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">scan_file =<span class="st"> &quot;/mnt/d/StorageXploreR-2025-01-10_20h18m.txt&quot;</span>
+dataset =<span class="st"> </span><span class="kw">read.table</span>(scan_file, <span class="dt">header=</span><span class="ot">TRUE</span>, <span class="dt">sep=</span><span class="st">&quot;</span><span class="ch">\t</span><span class="st">&quot;</span>)</code></pre></div>
+</div>
+</div>
+<div id="filter-data-includeexclude-subsets" class="section level1">
+<h1>Filter data: include/exclude subsets</h1>
+<p>It is possible to focus on specific directories by selecting or removing subsets with the functions include and exclude.</p>
+<div id="include-data" class="section level2">
+<h2>Include data</h2>
+<p>This allows to select a subset of the items that start with a given tag, such as a common root directory:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">inc_flag =<span class="st"> </span><span class="kw">include</span>(dataset[,<span class="dv">2</span>],<span class="st">&quot;./CNV/CNAprofiles&quot;</span> )
+dataset =<span class="st"> </span>dataset[inc_flag,]</code></pre></div>
+</div>
+<div id="exclude-data" class="section level2">
+<h2>Exclude data</h2>
+<p>This allows to exclude a subset of the items that start with a given tag, such as a common root directory:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">exc_flag =<span class="st"> </span><span class="kw">exclude</span>(dataset[,<span class="dv">2</span>],<span class="st">&quot;./CNV/CNAprofiles&quot;</span> )
+dataset =<span class="st"> </span>dataset[exc_flag,]</code></pre></div>
+</div>
+</div>
+<div id="parse-data" class="section level1">
+<h1>Parse data</h1>
+<p>A simple but powerfull set of functions to parse directories and files. The parsers assume that the files follow the established naming convention: &lt;FILE_NAME&gt;.&lt;EXTENSION&gt;.</p>
+<div id="get-file-full-name" class="section level2">
+<h2>Get file full name</h2>
+<p>The combination &quot;&lt;FILE_NAME&gt;.&lt;EXTENSION&gt;&quot; is designated in this package as &quot;full name&quot;. To detect get this, type:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">full_names =<span class="st"> </span><span class="kw">get_fullnames</span>(dataset[,<span class="dv">2</span>])
+<span class="co">#&gt; [1] &quot;Parsing full file names (name+extension) for 104840 files.&quot;</span>
+<span class="co">#&gt; [1] &quot;Finished.&quot;</span></code></pre></div>
+</div>
+<div id="get-file-extension" class="section level2">
+<h2>Get file extension</h2>
+<p>You can obtain the file extensions ('.' is not included) with:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">extensions =<span class="st"> </span><span class="kw">get_extensions</span>(dataset[,<span class="dv">2</span>])
+<span class="co">#&gt; [1] &quot;Parsing file extensions for 104840 files.&quot;</span>
+<span class="co">#&gt; [1] &quot;File extension detected for 104249 files (99.4% of total).&quot;</span></code></pre></div>
+</div>
+<div id="get-file-format" class="section level2">
+<h2>Get file format</h2>
+<p>You can scan for file extensions belonging to formats recognized by the package:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">formats =<span class="st"> </span><span class="kw">get_formats</span>(extensions)
+<span class="co">#&gt; [1] &quot;Detecting formats for 104840 extensions.&quot;</span>
+<span class="co">#&gt; [1] &quot;File format detected for 73723 extensions (70.3% of total).&quot;</span></code></pre></div>
+<p>To access the list of known file extensions, type:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(known_db)
+
+<span class="kw">head</span>(known_db)
+<span class="co">#&gt;   Extension</span>
+<span class="co">#&gt; 1       ?q?</span>
+<span class="co">#&gt; 2        7z</span>
+<span class="co">#&gt; 3         a</span>
+<span class="co">#&gt; 4       aac</span>
+<span class="co">#&gt; 5       abb</span>
+<span class="co">#&gt; 6       apk</span>
+<span class="co">#&gt;                                                                                                                                                                                Description</span>
+<span class="co">#&gt; 1                                                                                                                                      files that are compressed, often by the SQ program.</span>
+<span class="co">#&gt; 2                                                                                                                                                                    7-zip compressed file</span>
+<span class="co">#&gt; 3                                                                                                                                                     an external file extension for C/C++</span>
+<span class="co">#&gt; 4                                                                                                                                                                    Advanced Audio Coding</span>
+<span class="co">#&gt; 5                                                                                                                                                                       Android App Bundle</span>
+<span class="co">#&gt; 6 Android package: Applications installable on Android (also installable in derivatives and e.g. Windows 11); also a package format of the Alpine Linux distribution, see below under APK.</span>
+<span class="co">#&gt;                 Category</span>
+<span class="co">#&gt; 1 Archive and compressed</span>
+<span class="co">#&gt; 2 Archive and compressed</span>
+<span class="co">#&gt; 3 Archive and compressed</span>
+<span class="co">#&gt; 4 Archive and compressed</span>
+<span class="co">#&gt; 5 Archive and compressed</span>
+<span class="co">#&gt; 6 Archive and compressed</span></code></pre></div>
+</div>
+</div>
+<div id="redundancy-detection" class="section level1">
+<h1>Redundancy detection</h1>
+<p>Data redundancy can come in two main forms: files with multiple copies and same data stored in different file formats. To have a more lean storage you may want to flag these for further inspection and possible removal.</p>
+<div id="detect-files-with-multiple-copies-criteria-same-full-name-same-size" class="section level2">
+<h2>Detect files with multiple copies (criteria: same full name + same size)</h2>
+<p>Multi-copy files can be detected with:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">multicopy_idx =<span class="st"> </span><span class="kw">detect_multicopy_files</span>(dataset[,<span class="dv">2</span>], dataset[,<span class="dv">1</span>])</code></pre></div>
+</div>
+<div id="detect-related-files-criteria-same-name-but-extension-and-size-can-differ" class="section level2">
+<h2>Detect related files (criteria: same name, but extension and size can differ)</h2>
+<p>Handling data can result in the exact same data stored under different file formats. For example, for security reasons we can get an encrypted file (.gpg), which after decryption can produce a new compressed file (.zip), which needs to be decompressed so we can access a human readable version such as a text file (.txt). These files often share the same name, which we can use to detect related instances. This can be done via:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">related_idx =<span class="st"> </span><span class="kw">detect_related_files</span>(dataset[,<span class="dv">2</span>])</code></pre></div>
+</div>
+</div>
+<div id="descriptive-statistics" class="section level1">
+<h1>Descriptive statistics</h1>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Get file sizes by file extension</span>
+xt_sz =<span class="st"> </span><span class="kw">get_sizes</span>(dataset[,<span class="dv">1</span>], extensions)</code></pre></div>
+</div>
+<div id="plotting-results" class="section level1">
+<h1>Plotting results</h1>
+<p>A set of functions were develop to quickly plot and visualize storage usage. The functions allow to define the number of top categories to use in the plots, and can automatically detect and convert storage size units to improve visualization.</p>
+<div id="donut" class="section level2">
+<h2>Donut</h2>
+<p>The donut chart can be useful to get an impression about which files take the biggest fraction of the storage.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Donut for storage usage by file extension</span>
+<span class="co">#..prepare data for plotting..</span>
+c_sz =<span class="st"> </span>xt_sz
+<span class="kw">names</span>(c_sz) =<span class="st"> </span><span class="kw">colnames</span>(dataset)[<span class="dv">1</span>]
+
+<span class="co">#..plot..</span>
+<span class="kw">plot_donut</span>(<span class="dt">sizes=</span>c_sz, 
+           <span class="dt">ids=</span><span class="kw">names</span>(xt_sz),
+               <span class="dt">fraction_thresh=</span><span class="fl">0.02</span>,
+               <span class="dt">donut_title=</span><span class="st">&quot;Storage used by file extension&quot;</span>)
+<span class="co">#&gt; [1] &quot;Determining best convertion unit.&quot;</span>
+<span class="co">#&gt; [1] &quot;Converting units: KB -&gt; TB.&quot;</span></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+</div>
+<div id="barplot" class="section level2">
+<h2>Barplot</h2>
+<p>The barplot allows to check which files take most of the storage. In a donut chart we focus on fractions, here we focus on total size taken. Plotting side-by-side can give a better impression about the categories plotted relative to each other.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Barplot for top file extensions in terms of storage usage</span>
+<span class="kw">plot_barplot</span>(<span class="dt">sizes=</span>c_sz,
+             <span class="dt">ids=</span><span class="kw">names</span>(xt_sz),
+             <span class="dt">max_ids=</span><span class="dv">20</span>,
+             <span class="dt">barplot_title=</span><span class="st">&quot;Size in storage&quot;</span>,
+             <span class="dt">x_label=</span><span class="st">&quot;File Extension&quot;</span>)
+<span class="co">#&gt; [1] &quot;Determining best convertion unit.&quot;</span>
+<span class="co">#&gt; [1] &quot;Converting units: KB -&gt; TB.&quot;</span></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+</div>
+<div id="boxplot" class="section level2">
+<h2>Boxplot</h2>
+<p>The barplot allows to get an overview for individual files. Prioritizing outliers in downstream storage optimization can be an easy way to quickly gain storage space.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Boxplot for all files in file extension groups with top storage usage</span>
+c_sz =<span class="st"> </span>dataset[,<span class="dv">1</span>]
+<span class="kw">names</span>(c_sz) =<span class="st"> </span><span class="kw">colnames</span>(dataset)[<span class="dv">1</span>]
+
+<span class="kw">plot_boxplot</span>(<span class="dt">sizes=</span>c_sz,
+             <span class="dt">ids=</span>extensions,
+             <span class="dt">max_ids=</span><span class="dv">20</span>,
+             <span class="dt">boxplot_title=</span><span class="st">&quot;File size&quot;</span>,
+             <span class="dt">x_label=</span><span class="st">&quot;File Extension&quot;</span>)
+<span class="co">#&gt; [1] &quot;Determining best convertion unit.&quot;</span>
+<span class="co">#&gt; [1] &quot;Converting units: KB -&gt; GB.&quot;</span></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+</div>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
