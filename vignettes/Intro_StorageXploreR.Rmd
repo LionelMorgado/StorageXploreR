@@ -46,7 +46,7 @@ install_github("LionelMorgado/StorageXploreR")
 ```
 
 
-The package also need to be loaded every time `R` is restart.
+The package also need to be loaded every time `R` is restarted.
 ```{r Load package, message=FALSE}
 library(StorageXploreR)
 ```
