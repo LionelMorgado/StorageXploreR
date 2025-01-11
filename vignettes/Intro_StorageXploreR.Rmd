@@ -141,9 +141,25 @@ related_idx = detect_related_files(dataset[,2])
 
 
 # Descriptive statistics
-```{r descriptive_statistics}
-# Get file sizes by file extension
+A set of functions to facilitate the computation of some basic statistics parameters.
+```{r descriptive_statistics, message=FALSE}
+# Calculate number of files
+#..by extension..
+xt_tot = get_counts(extensions)
+#..by format..
+fm_tot = get_counts(formats)
+
+# Calculate file sizes
+#..by file extension..
 xt_sz = get_sizes(dataset[,1], extensions)
+#..by file format..
+fm_sz = get_sizes(dataset[,1], formats)
+
+# Calculate summary statistics for file size
+#..by file extension..
+xt_summaries = get_summaries(dataset[,1], extensions)
+#..by file format..
+xt_summaries = get_summaries(dataset[,1], formats)
 ```
 
 
