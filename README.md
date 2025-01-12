@@ -5,7 +5,6 @@ Over time, organizations can accumulate large amounts of data following poor sto
 
 StorageXploreR provides a set of functions to scan data storage units and quickly create a utilization profile to facilitate downstream optimization and standardization. Using file attributes such as the name, extension, format and size, it enables the detection of multi-copy and name-related files as candidates for potential removal or format optimization.
 
-This vignette shows some common ways in which the functions in this package can be used. It is however not exhaustive and will not show every argument of every function. You can view the documentation of a function by adding a ? in front of it (e.g. ?plot_donut). This allows to get a more detailed description of the functions and all their arguments. Additional examples of how the functions in this package can be used are also available.
 ![StorageXploreR_plots](https://github.com/user-attachments/assets/08431116-05ae-42e3-a75c-c3a41e58fc28)
 
 
