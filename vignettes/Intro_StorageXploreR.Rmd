@@ -159,7 +159,7 @@ fm_sz = get_sizes(dataset[,1], formats)
 #..by file extension..
 xt_summaries = get_summaries(dataset[,1], extensions)
 #..by file format..
-xt_summaries = get_summaries(dataset[,1], formats)
+fm_summaries = get_summaries(dataset[,1], formats)
 ```
 
 
