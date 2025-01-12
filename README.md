@@ -9,14 +9,15 @@ StorageXploreR provides a set of functions to scan data storage units and quickl
 profile to facilitate downstream optimization and standardization. Using file attributes such as the 
 name, extension, format and size, it enables the detection of multi-copy and name-related files as 
 candidates for potential removal or format optimization.
+![StorageXploreR_plots](https://github.com/user-attachments/assets/e737bed5-00b8-462b-883c-66794b5aca83)
 
-## Installation
+
+# Installation
 
 The package can be installed from github.
 ```{r install_package, eval=FALSE}
 install_github("LionelMorgado/StorageXploreR")
 ```
-
 
 The package also needs to be loaded every time `R` is restarted.
 ```{r Load package, message=FALSE}
