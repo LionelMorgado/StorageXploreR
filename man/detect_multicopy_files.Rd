@@ -4,21 +4,21 @@
 \alias{detect_multicopy_files}
 \title{Detect Multi-copy Files}
 \usage{
-detect_multicopy_files(all_fullfn, size)
+detect_multicopy_files(fullnames, sizes)
 }
 \arguments{
-\item{all_fullfn}{Vector with full file names (file name + extension).}
+\item{fullnames}{String vector with file full names.}
 
-\item{size}{Vector with size of files.}
+\item{sizes}{Numeric Vector with file sizes.}
 }
 \value{
-Matrix with 2 columns: one containing group indexes for files with same name, and another containing group indexes for files that further have the same size. Files not matching the criteria are given the numeric index 0.
+Matrix with 2 columns: one containing group indexes for files with same full name, and another containing group indexes for files that further have the same size. Files not matching the criteria are given the numeric index 0.
 }
 \description{
-Detect files with multiple copies based on full file name (filename+extension) and size.
+Detect files with multiple copies based on file full name (name+extension) and size.
 }
 \examples{
-fullfn = c("CopywriteR.log", "CopywriteR.log", "CopywriteR.log", "resume.txt")
+fullnames = c("CopywriteR.log", "CopywriteR.log", "CopywriteR.log", "resume.txt")
 sizes = c(4, 4, 100, 20)
-detect_multicopy_files(fullfn, sizes)
+detect_multicopy_files(fullnames, sizes)
 }

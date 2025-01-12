@@ -3,7 +3,7 @@
 export(convert_unit)
 export(detect_multicopy_files)
 export(detect_related_files)
-export(detect_same)
+export(detect_same_fullname)
 export(exclude)
 export(get_counts)
 export(get_extensions)

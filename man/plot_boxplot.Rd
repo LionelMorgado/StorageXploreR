@@ -6,19 +6,19 @@
 \usage{
 plot_boxplot(
   sizes,
-  ids,
-  max_ids = 20,
+  tags,
+  max_tags = 20,
   boxplot_title,
   x_label,
   fill_color = "steelblue"
 )
 }
 \arguments{
-\item{sizes}{Numeric vector with sizes for instances in categories (e.g.: size of files by file extension).}
+\item{sizes}{Numeric vector with sizes.}
 
-\item{ids}{Vector with tags for which to plot the sizes, one per instance.}
+\item{tags}{String vector with category tags for which to plot the sizes, one per instance.}
 
-\item{max_ids}{Total number of top categories (with higher size) to include in the boxplot.}
+\item{max_tags}{Total number of top categories (with higher size) to include in the boxplot.}
 
 \item{boxplot_title}{Main title of the boxplot.}
 
@@ -27,11 +27,11 @@ plot_boxplot(
 \item{fill_color}{Color of the boxes.}
 }
 \description{
-Boxplot for instance sizes by category.
+Boxplot for sizes for instances grouped by category.
 }
 \examples{
 sizes = c(15, 500, 100, 450, 200, 3000, 300, 600)
 names(sizes) = "MB"
-ids = c("txt", "txt", "txt", "txt", "bam", "bam", "bam", "gz")
-plot_boxplot(sizes, ids, 2, "Size in storage", "File Extension")
+tags = c("txt", "txt", "txt", "txt", "bam", "bam", "bam", "gz")
+plot_boxplot(sizes, tags, 2, "Size in storage", "File Extension")
 }

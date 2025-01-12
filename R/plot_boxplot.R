@@ -1,11 +1,11 @@
 #' @title Boxplot
 #'
 #' @description
-#' Boxplot for instance sizes by category.
+#' Boxplot for sizes for instances grouped by category.
 #'
-#' @param sizes Numeric vector with sizes for instances in categories (e.g.: size of files by file extension).
-#' @param ids Vector with tags for which to plot the sizes, one per instance.
-#' @param max_ids Total number of top categories (with higher size) to include in the boxplot.
+#' @param sizes Numeric vector with sizes.
+#' @param tags String vector with category tags for which to plot the sizes, one per instance.
+#' @param max_tags Total number of top categories (with higher size) to include in the boxplot.
 #' @param boxplot_title Main title of the boxplot.
 #' @param x_label Label to be used in the x-axis of the plot.
 #' @param fill_color Color of the boxes.
@@ -15,30 +15,30 @@
 #' @examples
 #' sizes = c(15, 500, 100, 450, 200, 3000, 300, 600)
 #' names(sizes) = "MB"
-#' ids = c("txt", "txt", "txt", "txt", "bam", "bam", "bam", "gz")
-#' plot_boxplot(sizes, ids, 2, "Size in storage", "File Extension")
+#' tags = c("txt", "txt", "txt", "txt", "bam", "bam", "bam", "gz")
+#' plot_boxplot(sizes, tags, 2, "Size in storage", "File Extension")
 
-plot_boxplot = function(sizes, ids, max_ids=20, boxplot_title, x_label, fill_color="steelblue"){
+plot_boxplot = function(sizes, tags, max_tags=20, boxplot_title, x_label, fill_color="steelblue"){
 
   #..validate inputs..
   if(!is.numeric(sizes)){
     stop("Input argument 'sizes' must be numeric.")
   }
-  if(!is.character(ids)){
-    stop("Input argument 'ids' must be of type character.")
+  if(!is.character(tags)){
+    stop("Input argument 'tags' must be of type character.")
   }
-  if(length(sizes)!=length(ids)){
-    stop("Input arguments 'sizes' and 'ids' must have the same length.")
+  if(length(sizes)!=length(tags)){
+    stop("Input arguments 'sizes' and 'tags' must have the same length.")
   }
 
 
   #..get top values..
-  ids_sz = get_sizes(sizes=sizes, tags=ids)#..get size per tag..
-  sz_top = get_top(sizes=ids_sz, ids=names(ids_sz), max_ids=max_ids)#..get top data..
-  top_filter = ids%in%names(sz_top)#..create filter for positions with the top data..
-  sizes_top = sizes[top_filter]#..isolate sizes for top ids..
+  tags_sz = get_sizes(sizes=sizes, tags=tags)#..get size per tag..
+  sz_top = get_top(sizes=tags_sz, tags=names(tags_sz), max_tags=max_tags)#..get top data..
+  top_filter = tags%in%names(sz_top)#..create filter for positions with the top data..
+  sizes_top = sizes[top_filter]#..isolate sizes for top tags..
   names(sizes_top) = colnames(dataset)[1]#..add sz unit..
-  ids_top = ids[top_filter]#..isolate top ids..
+  tags_top = tags[top_filter]#..isolate top tags..
 
   #..convert into best unit for plotting..
   sz_unit = names(sizes)[1]
@@ -46,7 +46,7 @@ plot_boxplot = function(sizes, ids, max_ids=20, boxplot_title, x_label, fill_col
   sz_unit = names(sizes)[1]#..update size unit..
 
   #..prepare data for ggplot..
-  df = data.frame(extension=ids_top, size=sizes)
+  df = data.frame(extension=tags_top, size=sizes)
 
   #..create plot..
   p = ggplot2::ggplot(data=df, ggplot2::aes(x=extension, y=size)) +

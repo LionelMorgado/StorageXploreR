@@ -1,11 +1,11 @@
 #' @title Get File Full Name
 #'
 #' @description
-#' Get file full names (name+extension) from tags composed of directory+name+extension.
+#' Get file full name (name+extension) from a set of strings by removing all of the path up to and including the last path separator (if any).
 #'
-#' @param dir_fullfns Vector with tags composed of directory followed by file full name (file name + extension).
+#' @param files String vector containing for files the path and full name.
 #'
-#' @return Vector with parsed file full names (file name+extension).
+#' @return Vector of strings with file full names.
 #'
 #' @export
 #'
@@ -13,14 +13,14 @@
 #' get_fullnames(c("./CNV/CNAprofiles_HUB.01.B2.001/CopywriteR.log", "./Results/resume.txt"))
 #' get_fullnames("MyAmazinfFile.pdf")
 
-get_fullnames = function(dir_fullfns){
+get_fullnames = function(files){
 
   #..print message to user interface..
-  tot_f = length(dir_fullfns)
-  print(paste0("Parsing full file names (name+extension) for ", tot_f, " files."))
+  tot_files = length(files)
+  print(paste0("Parsing full file names (name+extension) for ", tot_files, " files."))
 
   #..get full name for each file..
-  fullnames = unlist(lapply(dir_fullfns, get_fullname))
+  fullnames = unlist(lapply(files, get_fullname))
 
   #..print message with resume of results to user interface..
   print("Finished.")

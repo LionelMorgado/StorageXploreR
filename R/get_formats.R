@@ -1,16 +1,16 @@
 #' @title Determine File Format
 #'
 #' @description
-#' Determine file format from its extension.
+#' Determine file format from extension.
 #'
-#' @param extensions Vector with file extensions.
+#' @param extensions String vector with file extensions.
 #'
-#' @return Vector with all possible file extensions for the known formats. File extensions wich are not recognized (and for which a format cannot be determined) are signed with an "Unknown" tag.
+#' @return String vector with all possible extensions for the detected format, for each file. File extensions wich are not recognized (and for which a format cannot be determined) are assigned the tag "Unknown".
 #' @export
 #'
 #' @examples
-#' get_format(c("htm", "txt","random_tag"))
-#' get_format("mpg")
+#' get_formats(c("htm", "txt","random_tag"))
+#' get_formats("mpg")
 
 get_formats = function(extensions){
 

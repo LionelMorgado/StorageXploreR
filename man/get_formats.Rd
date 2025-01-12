@@ -7,15 +7,15 @@
 get_formats(extensions)
 }
 \arguments{
-\item{extensions}{Vector with file extensions.}
+\item{extensions}{String vector with file extensions.}
 }
 \value{
-Vector with all possible file extensions for the known formats. File extensions wich are not recognized (and for which a format cannot be determined) are signed with an "Unknown" tag.
+String vector with all possible extensions for the detected format, for each file. File extensions wich are not recognized (and for which a format cannot be determined) are assigned the tag "Unknown".
 }
 \description{
-Determine file format from its extension.
+Determine file format from extension.
 }
 \examples{
-get_format(c("htm", "txt","random_tag"))
-get_format("mpg")
+get_formats(c("htm", "txt","random_tag"))
+get_formats("mpg")
 }

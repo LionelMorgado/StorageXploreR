@@ -4,17 +4,17 @@
 \alias{get_names}
 \title{Get File Name}
 \usage{
-get_names(fullfns)
+get_names(files)
 }
 \arguments{
-\item{fullfns}{Vector with strings to be parsed.}
+\item{files}{String vector containing files full name, concatenated or not with the path.}
 }
 \value{
-Vector with filenames without extension.
+String vector with file names without extension.
 }
 \description{
-Get file name (file name without extension) from a full file name tag for a set of files. Assumes that the tag follows the format: <file_name>.<file_extension>.
+Get file name (name without extension) from a file full name tag for a set of files. Assumes that the tags follows the format: <name>.<extension>.
 }
 \examples{
-get_names(c("amazing_file.txt", "bigdata.Rdata"))
+get_names(c("/mnt/amazin_project/amazing_file.txt", "bigdata.Rdata"))
 }

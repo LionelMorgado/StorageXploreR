@@ -1,24 +1,24 @@
 #' @title Get File Full Name (Single File)
 #'
 #' @description
-#' Get file full name (name+extension) from one tag composed of file directory+name+extension.
+#' Get file full name (name+extension) from a string by removing all of the path up to and including the last path separator (if any).
 #'
-#' @param dir_fullfn String tag composed of directoriy followed by file full name (file name + extension).
+#' @param files String containing for a file the path and full name.
 #'
-#' @return Parsed file full name (file name+extension)).
+#' @return String with file full name.
 #'
 #' @examples
-#' get_fullname("MyAmazinfFile.pdf")
+#' get_fullname("/mnt/folder1/MyAmazinfFile.pdf")
 
-get_fullname = function(dir_fullfn){
+get_fullname = function(files){
 
   #..validate inputs..
-  if(!is.character(dir_fullfn)){
-    stop("Input argument 'dir_fullfn' must be of type character.")
+  if(!is.character(files)){
+    stop("Input argument 'files' must be of type character.")
   }
 
-  fullfn = unlist(strsplit(dir_fullfn, "/"))
-  fullfn = fullfn[length(fullfn)]
+  fullname = unlist(strsplit(files, "/"))
+  fullname = fullname[length(fullname)]
 
-  return(fullfn)
+  return(fullname)
 }

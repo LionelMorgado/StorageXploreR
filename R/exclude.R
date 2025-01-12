@@ -3,10 +3,10 @@
 #' @description
 #' Detects tags in a set starting with a given exclude tag.
 #'
-#' @param tags Vector with tags to be filtered.
-#' @param exclude_tags Vector with tags to exclude from the dataset.
+#' @param tags String vector with tags to be filtered.
+#' @param exclude_tags String vector with tags to exclude from the dataset.
 #'
-#' @return Flag with FALSE bollean value for items to be excluded.
+#' @return Bolean flag with FALSE for items to be excluded, and TRUE otherwise.
 #' @export
 #'
 #' @examples
@@ -44,7 +44,8 @@ exclude = function(tags, exclude_tags=NULL){
     }
 
     #..print message with resume of results to user interface..
-    print(paste0("Total excluded: ", sum(exc_flag)))
+    exc_perc = signif(sum(exc_flag)/length(exc_flag)*100, digits=3)
+    print(paste0("Total excluded: ", sum(exc_flag), " (", exc_perc, "% of total)"))
 
     return(exc_flag)
   }

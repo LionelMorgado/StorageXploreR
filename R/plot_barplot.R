@@ -4,9 +4,9 @@
 #' Barplot for sizes by category.
 #'
 #' @param sizes Numeric vector with category sizes.
-#' @param ids Vector with tags for which to plot the sizes.
+#' @param tags Vector with tags for which to plot the sizes.
 #' @param barplot_title Main title of the barplot.
-#' @param max_ids Maximum tags for which to plot.
+#' @param max_tags Maximum tags for which to plot.
 #' @param x_label Label to be used in the x-axis of the plot.
 #' @param fill_color Color of the bars.
 #'
@@ -17,28 +17,28 @@
 #' @examples
 #' sizes = c(10, 500, 250, 3000)
 #' names(sizes) = "MB"
-#' ids = c("txt", "gz", "pdf", "bam")
-#' plot_barplot(sizes, ids, 3, "Size in storage", "File Extension")
+#' tags = c("txt", "gz", "pdf", "bam")
+#' plot_barplot(sizes, tags, 3, "Size in storage", "File Extension")
 
-plot_barplot = function(sizes, ids, max_ids=20, barplot_title, x_label="Instance", fill_color="steelblue"){
+plot_barplot = function(sizes, tags, max_tags=20, barplot_title, x_label="Instance", fill_color="steelblue"){
 
   #..validate inputs..
   if(!is.numeric(sizes)){
     stop("Input argument 'sizes' must be numeric.")
   }
-  if(!is.character(ids)){
-    stop("Input argument 'ids' must be of type character.")
+  if(!is.character(tags)){
+    stop("Input argument 'tags' must be of type character.")
   }
-  if(length(sizes)!=length(ids)){
-    stop("Input arguments 'sizes' and 'ids' must have the same length.")
+  if(length(sizes)!=length(tags)){
+    stop("Input arguments 'sizes' and 'tags' must have the same length.")
   }
-  if(!is.numeric(max_ids)){
-    stop("Input argument 'max_ids' must be numeric.")
+  if(!is.numeric(max_tags)){
+    stop("Input argument 'max_tags' must be numeric.")
   }
 
 
   #..get top values..
-  sz_top = get_top(sizes=sizes, ids=ids, max_ids=max_ids)
+  sz_top = get_top(sizes=sizes, tags=tags, max_tags=max_tags)
 
   #..convert into best unit for plotting..
   sz_unit = names(sizes)[1]

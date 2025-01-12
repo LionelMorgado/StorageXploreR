@@ -4,15 +4,15 @@
 \alias{get_summaries}
 \title{Data Summary}
 \usage{
-get_summaries(sizes, ids)
+get_summaries(sizes, tags)
 }
 \arguments{
-\item{sizes}{Vector with numbers.}
+\item{sizes}{Numeric vector with sizes.}
 
-\item{ids}{Vector with tags.}
+\item{tags}{String vector with tags, one per size value.}
 }
 \value{
-Data summaries per unique tag as compute per R function "summary()": Min., 1st Qu.,  Median, Mean, 3rd Qu. and  Max.
+Data summaries per unique tag as computed per R function "summary()": Min., 1st Qu.,  Median, Mean, 3rd Qu. and  Max.
 }
 \description{
 Compute data summaries for multiple tags.

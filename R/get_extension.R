@@ -1,25 +1,26 @@
 #' @title Get File Extension (Single File)
 #'
 #' @description
-#' Get extension for one input file, assuming that the extension follows a standard structure where the extension is the last piece of the file name after a dot.
+#' Get file extension a string assuming that the file naming follows a structure where the extension is the last piece of the file full name after a dot.
 #'
-#' @param dir_fullfn Directories and full file name (file name + extension) to parse.
+#' @param file Directories and full file name (file name + extension) to parse.
 #'
-#' @return Vector of extensions with parsed extensions.
+#' @return String with file extension.
 #'
 #' @examples
+#' get_extension("./CNV/CNAprofiles_HUB.01.B2.001/CopywriteR.log")
 #' get_extension("MyAmazinfFile.pdf"))
 
-get_extension = function(dir_fullfn){
+get_extension = function(file){
 
   #..validate inputs..
-  if(!is.character(dir_fullfn)){
-    stop("Input argument 'dir_fullfn' must be of type character.")
+  if(!is.character(file)){
+    stop("Input argument 'file' must be of type character.")
   }
 
   #..parse..
-  dir_fullfn = unlist(strsplit(dir_fullfn, "/"))#..separate the file name from the file directory..
-  file_name = dir_fullfn[length(dir_fullfn)]#..get the last tag..
+  file = unlist(strsplit(file, "/"))#..separate the file name from the file directory..
+  file_name = file[length(file)]#..get the last tag..
   xt_flag = length(grep("\\.", file_name))>0#..check if there is a dot in the last tag..
   if(xt_flag==TRUE){#..dot detected..
     extension = unlist(strsplit(file_name, "\\."))#..split tag..

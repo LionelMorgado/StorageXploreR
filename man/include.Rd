@@ -7,9 +7,9 @@
 include(tags, include_tags = NULL)
 }
 \arguments{
-\item{tags}{Vector with tags to be filtered.}
+\item{tags}{String vector with tags to be filtered.}
 
-\item{include_tags}{Vector with tags to include in the dataset.}
+\item{include_tags}{String vector with tags to include in the dataset.}
 }
 \value{
 Flag with TRUE bollean value for items to be included.

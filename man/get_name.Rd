@@ -4,16 +4,16 @@
 \alias{get_name}
 \title{Get File Name (Single File)}
 \usage{
-get_name(fullfn)
+get_name(file)
 }
 \arguments{
-\item{fullfn}{String to be parsed.}
+\item{file}{String containing file full name, concatenated or not with the path.}
 }
 \value{
-File name without file extension.
+File name without extension.
 }
 \description{
-Get file name (file name without extension) from a full file name tag. Assumes that the tag follows the format: <file_name>.<file_extension>.
+Get file name (name without extension) from a file full name tag. Assumes that the tag follows the format: <name>.<extension>.
 }
 \examples{
 get_name("myfile.txt")

@@ -3,8 +3,8 @@
 #' @description
 #' Detects tags in a set starting with a given include tag.
 #'
-#' @param tags Vector with tags to be filtered.
-#' @param include_tags Vector with tags to include in the dataset.
+#' @param tags String vector with tags to be filtered.
+#' @param include_tags String vector with tags to include in the dataset.
 #'
 #' @return Flag with TRUE bollean value for items to be included.
 #' @export
@@ -40,7 +40,8 @@ include = function(tags, include_tags=NULL){
   }
 
   #..print message with resume of results to user interface..
-  print(paste0("Total included: ", sum(inc_flag)))
+  inc_perc = signif(sum(inc_flag)/length(inc_flag)*100, digits=3)
+  print(paste0("Total included: ", sum(inc_flag), " (", inc_perc, "% of total)"))
 
   return(inc_flag)
 }

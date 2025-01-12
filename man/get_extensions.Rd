@@ -4,16 +4,16 @@
 \alias{get_extensions}
 \title{Get File Extension}
 \usage{
-get_extensions(dir_fullfns)
+get_extensions(files)
 }
 \arguments{
-\item{dir_fullfns}{Vector with directories and full file names (file name + extension).}
+\item{files}{String vector containing for files the path and full name.}
 }
 \value{
-Vector with parsed extensions.
+String vector with file extensions.
 }
 \description{
-Get extension for files, assuming that the extension follows a standard structure where the extension is the last piece of the file name after a dot.
+Get file extension from a set of strings assuming that the file naming follows a structure where the extension is the last piece of the file full name after a dot.
 }
 \examples{
 get_extensions(c("./CNV/CNAprofiles_HUB.01.B2.001/CopywriteR.log", "./Results/resume.txt"))

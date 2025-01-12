@@ -4,14 +4,14 @@
 \alias{get_summary}
 \title{Data Summary (Single Category)}
 \usage{
-get_summary(target_id, sizes, ids)
+get_summary(target_tag, sizes, tags)
 }
 \arguments{
-\item{target_id}{Tag for which to compute the data summary.}
+\item{target_tag}{String for which to compute the data summary.}
 
-\item{sizes}{Vector with numbers.}
+\item{sizes}{Numeric vector with sizes.}
 
-\item{ids}{Vector with tags.}
+\item{tags}{String vector with a set of tags.}
 }
 \value{
 Data summary for one tag as compute per R function "summary()": Min., 1st Qu.,  Median, Mean, 3rd Qu. and  Max.

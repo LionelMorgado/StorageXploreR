@@ -4,7 +4,7 @@
 #' Plot donut for size by category.
 #'
 #' @param sizes Numeric vector with sizes.
-#' @param ids Vector with tags for which to plot the sizes.
+#' @param tags Vector with tags for which to plot the sizes.
 #' @param fraction_thresh Threshold for the smaller fractions of the donut to plot.
 #' @param donut_title Main title of the donut.
 #' @param c_palette Color pallete to be used int the donut segments.
@@ -15,20 +15,20 @@
 #' @examples
 #' sizes = c(10, 500, 60, 3000)
 #' names(sizes) = "MB"
-#' ids = c("txt", "gz", "pdf", "bam")
-#' plot_donut(sizes, ids, 0.4, "Storage used by file extension")
+#' tags = c("txt", "gz", "pdf", "bam")
+#' plot_donut(sizes, tags, 0.4, "Storage used by file extension")
 
-plot_donut = function(sizes, ids, fraction_thresh=0.03, donut_title, c_palette="Set3", start_angle=0){
+plot_donut = function(sizes, tags, fraction_thresh=0.03, donut_title, c_palette="Set3", start_angle=0){
 
   #..validate inputs..
   if(!is.numeric(sizes)){
     stop("Input argument 'sizes' must be numeric.")
   }
-  if(!is.character(ids)){
-    stop("Input argument 'ids' must be of type character.")
+  if(!is.character(tags)){
+    stop("Input argument 'tags' must be of type character.")
   }
-  if(length(sizes)!=length(ids)){
-    stop("Input arguments 'sizes' and 'ids' must have the same length.")
+  if(length(sizes)!=length(tags)){
+    stop("Input arguments 'sizes' and 'tags' must have the same length.")
   }
   if(!is.numeric(fraction_thresh)){
     stop("Input argument 'fraction_thresh' must be numeric.")
@@ -49,20 +49,20 @@ plot_donut = function(sizes, ids, fraction_thresh=0.03, donut_title, c_palette="
   #..group all entries with less than a user defined % of total storage..
   k_flag = fractions>=fraction_thresh#..determine fractions equal or above the threshold..
   frac_donut = c(fractions[k_flag], sum(fractions[!k_flag]))#..determine fractions of the donut..
-  ids_donut = c(ids[k_flag], paste0("Others (<", fraction_thresh*100,"%)"))#..create instance id tags to show in the plot..
+  tags_donut = c(tags[k_flag], paste0("Others (<", fraction_thresh*100,"%)"))#..create instance id tags to show in the plot..
   sz_donut = c(sizes[k_flag], sum(sizes[!k_flag]))#..define instance size to show in the plot..
 
   #..format data to fit ggplot..
-  df = data.frame(ids=ids_donut, size=sz_donut)
+  df = data.frame(tags=tags_donut, size=sz_donut)
   df$fraction = frac_donut
   df$ymax = cumsum(df$fraction)
   df$ymin = c(0, head(df$ymax, n=-1))
   df$labelPosition = (df$ymax + df$ymin)/2
   perc_donut = signif(frac_donut*100, digits=3)
-  df$label = paste0(ids_donut,"\n", perc_donut, "%")
+  df$label = paste0(tags_donut,"\n", perc_donut, "%")
 
   #..create plot..
-  p = ggplot2::ggplot(df, ggplot2::aes(ymax=ymax, ymin=ymin, xmax=4, xmin=3, fill=ids)) +
+  p = ggplot2::ggplot(df, ggplot2::aes(ymax=ymax, ymin=ymin, xmax=4, xmin=3, fill=tags)) +
     ggplot2::geom_rect(colour="black") +
     ggrepel::geom_label_repel(ggplot2::aes(x=4, y=labelPosition, label=label),
                      size=4, hjust=0.5,

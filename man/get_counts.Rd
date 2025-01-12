@@ -4,15 +4,15 @@
 \alias{get_counts}
 \title{Count Total}
 \usage{
-get_counts(ids, target_ids = NULL)
+get_counts(tags, target_tags = NULL)
 }
 \arguments{
-\item{ids}{Ids for which to get counts.}
+\item{tags}{String vector with tags for which to get counts.}
 
-\item{target_ids}{Ids to keep.}
+\item{target_tags}{String vector with tags to keep.}
 }
 \value{
-Table with counts for unique ids.
+Table with counts for unique tags.
 }
 \description{
 Calculate total number of instances in a set.

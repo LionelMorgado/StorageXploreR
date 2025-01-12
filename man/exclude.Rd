@@ -7,12 +7,12 @@
 exclude(tags, exclude_tags = NULL)
 }
 \arguments{
-\item{tags}{Vector with tags to be filtered.}
+\item{tags}{String vector with tags to be filtered.}
 
-\item{exclude_tags}{Vector with tags to exclude from the dataset.}
+\item{exclude_tags}{String vector with tags to exclude from the dataset.}
 }
 \value{
-Flag with FALSE bollean value for items to be excluded.
+Bolean flag with FALSE for items to be excluded, and TRUE otherwise.
 }
 \description{
 Detects tags in a set starting with a given exclude tag.

@@ -4,17 +4,17 @@
 \alias{get_top}
 \title{Top Ranking}
 \usage{
-get_top(sizes, ids, max_ids)
+get_top(sizes, tags, max_tags)
 }
 \arguments{
-\item{sizes}{Vector of values.}
+\item{sizes}{Numeric vector with sizes.}
 
-\item{ids}{Identifier tags for each input value.}
+\item{tags}{String with tags for each size value.}
 
-\item{max_ids}{Number of top elements to return.}
+\item{max_tags}{Number of top elements to return.}
 }
 \value{
-Vector with top values sorted is descending order.
+Numeric vector with top values sorted is descending order named by tag.
 }
 \description{
 Retrieve categories with top values.

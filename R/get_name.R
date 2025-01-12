@@ -1,20 +1,20 @@
 #' @title Get File Name (Single File)
 #'
 #' @description
-#' Get file name (file name without extension) from a full file name tag. Assumes that the tag follows the format: <file_name>.<file_extension>.
+#' Get file name (name without extension) from a file full name tag. Assumes that the tag follows the format: <name>.<extension>.
 #'
-#' @param fullfn String to be parsed.
+#' @param file String containing file full name, concatenated or not with the path.
 #'
-#' @return File name without file extension.
+#' @return File name without extension.
 #' @export
 #'
 #' @examples
 #' get_name("myfile.txt")
 
-get_name = function(fullfn){
+get_name = function(file){
 
-  fn = get_fullname(fullfn)
-  fn = unlist(strsplit(fn, "\\."))[1]
+  fn = get_fullname(file)
+  fn = unlist(strsplit(file, "\\."))[1]
 
   return(fn)
 }

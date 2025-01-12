@@ -6,8 +6,8 @@
 \usage{
 plot_barplot(
   sizes,
-  ids,
-  max_ids = 20,
+  tags,
+  max_tags = 20,
   barplot_title,
   x_label = "Instance",
   fill_color = "steelblue"
@@ -16,9 +16,9 @@ plot_barplot(
 \arguments{
 \item{sizes}{Numeric vector with category sizes.}
 
-\item{ids}{Vector with tags for which to plot the sizes.}
+\item{tags}{Vector with tags for which to plot the sizes.}
 
-\item{max_ids}{Maximum tags for which to plot.}
+\item{max_tags}{Maximum tags for which to plot.}
 
 \item{barplot_title}{Main title of the barplot.}
 
@@ -32,6 +32,6 @@ Barplot for sizes by category.
 \examples{
 sizes = c(10, 500, 250, 3000)
 names(sizes) = "MB"
-ids = c("txt", "gz", "pdf", "bam")
-plot_barplot(sizes, ids, 3, "Size in storage", "File Extension")
+tags = c("txt", "gz", "pdf", "bam")
+plot_barplot(sizes, tags, 3, "Size in storage", "File Extension")
 }

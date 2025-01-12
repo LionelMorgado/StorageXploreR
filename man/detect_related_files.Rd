@@ -4,10 +4,10 @@
 \alias{detect_related_files}
 \title{Detect Related Files}
 \usage{
-detect_related_files(all_fullfn)
+detect_related_files(files)
 }
 \arguments{
-\item{all_fullfn}{Vector with full file names (file name + extension).}
+\item{files}{String vector containing for files the path and full name.}
 }
 \value{
 Matrix with group indexes for related files.
@@ -16,6 +16,6 @@ Matrix with group indexes for related files.
 Detect related files (criteria: same name but extension can differ).
 }
 \examples{
-fullfn = c("./myfolder/CopywriteR.log", "CopywriteR.log", "./dir/resume.txt" , "./dif_dir/difsubdir/resume.txt", "single.txt", "CopywriteR.log")
-detect_related_files(fullfn)
+files = c("./myfolder/CopywriteR.log", "CopywriteR.log", "./dir/resume.txt" , "./dif_dir/difsubdir/resume.txt", "single.txt", "CopywriteR.log")
+detect_related_files(files)
 }

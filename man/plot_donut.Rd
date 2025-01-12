@@ -6,7 +6,7 @@
 \usage{
 plot_donut(
   sizes,
-  ids,
+  tags,
   fraction_thresh = 0.03,
   donut_title,
   c_palette = "Set3",
@@ -16,7 +16,7 @@ plot_donut(
 \arguments{
 \item{sizes}{Numeric vector with sizes.}
 
-\item{ids}{Vector with tags for which to plot the sizes.}
+\item{tags}{Vector with tags for which to plot the sizes.}
 
 \item{fraction_thresh}{Threshold for the smaller fractions of the donut to plot.}
 
@@ -32,6 +32,6 @@ Plot donut for size by category.
 \examples{
 sizes = c(10, 500, 60, 3000)
 names(sizes) = "MB"
-ids = c("txt", "gz", "pdf", "bam")
-plot_donut(sizes, ids, 0.4, "Storage used by file extension")
+tags = c("txt", "gz", "pdf", "bam")
+plot_donut(sizes, tags, 0.4, "Storage used by file extension")
 }

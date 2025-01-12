@@ -4,17 +4,17 @@
 \alias{get_fullname}
 \title{Get File Full Name (Single File)}
 \usage{
-get_fullname(dir_fullfn)
+get_fullname(files)
 }
 \arguments{
-\item{dir_fullfn}{String tag composed of directoriy followed by file full name (file name + extension).}
+\item{files}{String containing for a file the path and full name.}
 }
 \value{
-Parsed file full name (file name+extension)).
+String with file full name.
 }
 \description{
-Get file full name (name+extension) from one tag composed of file directory+name+extension.
+Get file full name (name+extension) from a string by removing all of the path up to and including the last path separator (if any).
 }
 \examples{
-get_fullname("MyAmazinfFile.pdf")
+get_fullname("/mnt/folder1/MyAmazinfFile.pdf")
 }

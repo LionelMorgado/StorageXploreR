@@ -4,16 +4,16 @@
 \alias{get_fullnames}
 \title{Get File Full Name}
 \usage{
-get_fullnames(dir_fullfns)
+get_fullnames(files)
 }
 \arguments{
-\item{dir_fullfns}{Vector with tags composed of directory followed by file full name (file name + extension).}
+\item{files}{String vector containing for files the path and full name.}
 }
 \value{
-Vector with parsed file full names (file name+extension).
+Vector of strings with file full names.
 }
 \description{
-Get file full names (name+extension) from tags composed of directory+name+extension.
+Get file full name (name+extension) from a set of strings by removing all of the path up to and including the last path separator (if any).
 }
 \examples{
 get_fullnames(c("./CNV/CNAprofiles_HUB.01.B2.001/CopywriteR.log", "./Results/resume.txt"))
