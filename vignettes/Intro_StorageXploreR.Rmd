@@ -129,14 +129,14 @@ Data redundancy can come in two main forms: files with multiple copies and same 
 ## Detect files with multiple copies (criteria: same full name + same size)
 Multi-copy files can be detected with:
 ```{r detect_multicopy, eval=FALSE}
-multicopy_idx = detect_multicopy_files(dataset[,2], dataset[,1])
+multicopy_idx = detect_multicopy_files(full_names, dataset[,1])
 ```
 
 ## Detect related files (criteria: same name, but extension and size can differ)
 Handling data can result in the exact same data stored under different file formats. For example, for security reasons we can get an encrypted file (.gpg), which after decryption can produce a new compressed file (.zip), which needs to be decompressed so we can access a human readable version such as a text file (.txt). These files often share the same name, which we can use to detect related instances.
 This can be done via:
 ```{r detect_related, eval=FALSE}
-related_idx = detect_related_files(dataset[,2])
+related_idx = detect_related_files(full_names)
 ```
 
 
