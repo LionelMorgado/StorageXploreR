@@ -3,7 +3,7 @@
 #' @description
 #' Get file name (name without extension) from a file full name tag. Assumes that the tag follows the format: <name>.<extension>.
 #'
-#' @param file String containing file full name, concatenated or not with the path.
+#' @param file String containing file full name.
 #'
 #' @return File name without extension.
 #' @export

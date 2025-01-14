@@ -15,15 +15,8 @@
 
 get_fullnames = function(files){
 
-  #..print message to user interface..
-  tot_files = length(files)
-  print(paste0("Parsing full file names (name+extension) for ", tot_files, " files."))
-
   #..get full name for each file..
   fullnames = unlist(lapply(files, get_fullname))
-
-  #..print message with resume of results to user interface..
-  print("Finished.")
 
   return(fullnames)
 }

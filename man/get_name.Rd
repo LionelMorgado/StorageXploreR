@@ -7,7 +7,7 @@
 get_name(file)
 }
 \arguments{
-\item{file}{String containing file full name, concatenated or not with the path.}
+\item{file}{String containing file full name.}
 }
 \value{
 File name without extension.

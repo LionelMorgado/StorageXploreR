@@ -4,12 +4,14 @@
 \alias{detect_multicopy_files}
 \title{Detect Multi-copy Files}
 \usage{
-detect_multicopy_files(fullnames, sizes)
+detect_multicopy_files(files, sizes, use_md5sum = FALSE)
 }
 \arguments{
-\item{fullnames}{String vector with file full names.}
+\item{files}{String vector with files path and full name.}
 
 \item{sizes}{Numeric Vector with file sizes.}
+
+\item{use_md5sum}{Bollean indicating if md5sum codes must be used or not.}
 }
 \value{
 Matrix with 2 columns: one containing group indexes for files with same full name, and another containing group indexes for files that further have the same size. Files not matching the criteria are given the numeric index 0.
@@ -18,7 +20,7 @@ Matrix with 2 columns: one containing group indexes for files with same full nam
 Detect files with multiple copies based on file full name (name+extension) and size.
 }
 \examples{
-fullnames = c("CopywriteR.log", "CopywriteR.log", "CopywriteR.log", "resume.txt")
-sizes = c(4, 4, 100, 20)
+files = rep("D:/Stuff/GITHUBPortfolio/Storage/data/mitra/known_db.rda", 4)
+sizes = c(100, 4, 10, 4)
 detect_multicopy_files(fullnames, sizes)
 }

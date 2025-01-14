@@ -6,10 +6,11 @@
 #' @param files String vector containing files full name, concatenated or not with the path.
 #'
 #' @return String vector with file names without extension.
+#'
 #' @export
 #'
 #' @examples
-#' get_names(c("/mnt/amazin_project/amazing_file.txt", "bigdata.Rdata"))
+#' get_names(c("amazing_file.txt", "bigdata.Rdata"))
 
 get_names = function(files){
   #..print message to user interface..

@@ -8,7 +8,6 @@
 #' @param tags String vector with a set of tags.
 #'
 #' @return Data summary for one tag as compute per R function "summary()": Min., 1st Qu.,  Median, Mean, 3rd Qu. and  Max.
-#' @export
 #'
 #' @examples
 #' get_summary("bam", c(10, 10, 33333, 3, 12), c("txt","txt","bam","txt","bam"))

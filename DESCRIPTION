@@ -4,7 +4,7 @@ Title: Data storage profiling and exploration
 Version: 0.1.0
 Author: Lionel Morgado
 Maintainer: Lionel Morgado <lionelmorgado@gmail.com>
-Description: The package provides a set of functions to scan data storage units and quickly create a utilization
+Description: The package provides a set of functions to scan data storage units and quickly create an utilization
              profile to facilitate downstream optimization and standardization. Using file attributes such as the 
              name, extension, format and size, it enables the detection of multi-copy and name-related files as 
              candidates for potential removal or format optimization.
@@ -16,7 +16,7 @@ Imports:
     ggplot2,
     ggrepel,
     progress,
-    rlang
+    tools
 Depends: 
     R (>= 3.5)
 RoxygenNote: 7.3.2

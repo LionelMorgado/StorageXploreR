@@ -38,7 +38,7 @@ detect_related_files = function(files){
   if(tot_names_multi>0){#..in the case there are repeated file names..
 
     #..print initialization message to user interface..
-    print(paste0("Assigning group index to a set of ", tot_names_multi, " related files."))
+    print(paste0("Assigning group index to a set of ", tot_names_multi, " files."))
 
     #..initialize progress bar..
     pb = get_progressbar(tot_names_multi)

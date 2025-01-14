@@ -26,7 +26,7 @@ Over time, organizations can accumulate large amounts of data following poor sto
 For example, it is common to find in legacy data, multiple copies of the exact same file spread 
 all over the storage, the same data stored in different file formats, or files in formats which are
 suboptimal for storage.
-This can arise adverse situations, such as a lack of storage space or add unnecessary storage costs.
+This can rise adverse situations, such as a lack of storage space or add unnecessary storage costs.
  
 
 StorageXploreR provides a set of functions to scan data storage units and quickly create a utilization
@@ -101,14 +101,13 @@ Given that there is currently no wide spread consensus about the file naming ter
 * Path: string of characters used to uniquely identify a location in a directory structure, where folders are separated by slash ("/");  
 * Name: name of the file without the extension;  
 * Extension: last portion of the file name that typically comes after a period and is made up of three or four alphanumeric characters that identify the file's format;  
-* Full file name: concatenation of the name and extension with a dot in between.  
+* Full name: concatenation of the name and extension with a dot in between.  
   
 For example, in "/mnt/d/StorageXploreR_results.txt":  
 * "/mnt/d/" is the path;  
 * "StorageXploreR_results" is the name;  
-* "txt" is the extension.
+* "txt" is the extension.  
 * "StorageXploreR_results.txt" is the full name.  
-The parsers assume that the files follow the naming convention: \<NAME\>.\<EXTENSION\>.
 
 ## Get file full name
 To get file full names:
@@ -119,7 +118,7 @@ full_names = get_fullnames(dataset[,2])
 ## Get name
 To get file names:
 ```{r get_names}
-names = get_names(dataset[,2])
+names = get_names(full_names)
 ```
 
 ## Get file extension
@@ -144,11 +143,12 @@ head(known_db)
 # Redundancy detection
 Data redundancy can come in two main forms: files with multiple copies and same data stored in different file formats. To have a more lean storage you may want to flag these for further inspection and possible removal.
 
-## Detect files with multiple copies (criteria: same full name + same size)
+## Detect files with multiple copies (criteria: same full name + same size + same md5sum)
 Multi-copy files can be detected with:
 ```{r detect_multicopy, eval=FALSE}
-multicopy_idx = detect_multicopy_files(full_names, dataset[,1])
+multicopy_idx = detect_multicopy_files(dataset[,2], dataset[,1], use_md5sum=FALSE)
 ```
+Because computing md5sums can be computationally heavy, their usage is deactivated by default. However, it is therefore advised to check them to guarantee that the files are true copies. 
 
 ## Detect related files (criteria: same name, but extension and size can differ)
 Handling data can result in the exact same data stored under different file formats. For example, for security reasons we can get an encrypted file (.gpg), which after decryption can produce a new compressed file (.zip), which needs to be decompressed to get a readable version such as a vcf file (.vcf). This type of data flow frequently produces files that share the same name but vary in extension. Using this naming pattern allows to detect related instances.

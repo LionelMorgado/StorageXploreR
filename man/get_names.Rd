@@ -16,5 +16,5 @@ String vector with file names without extension.
 Get file name (name without extension) from a file full name tag for a set of files. Assumes that the tags follows the format: <name>.<extension>.
 }
 \examples{
-get_names(c("/mnt/amazin_project/amazing_file.txt", "bigdata.Rdata"))
+get_names(c("amazing_file.txt", "bigdata.Rdata"))
 }
