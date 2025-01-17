@@ -20,3 +20,9 @@ The package also needs to be loaded every time `R` is restarted.
 ```{r Load package, message=FALSE}
 library(StorageXploreR)
 ```
+
+
+
+
+# Documentation
+A vignette is available with examples on how to use the main functions in the package.
